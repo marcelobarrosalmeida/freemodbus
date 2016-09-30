@@ -35,6 +35,8 @@
 #include <signal.h>
 
 /* ----------------------- Modbus includes ----------------------------------*/
+
+#include "port.h"
 #include "mb.h"
 #include "mbport.h"
 

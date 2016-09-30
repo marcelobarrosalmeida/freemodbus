@@ -8,9 +8,9 @@
 # ---------------------------------------------------------------------------
 # platform dependencies
 # ---------------------------------------------------------------------------
-ifneq ($(strip $(shell gcc -v 2>&1 |grep "cygwin")),)
-	CYGWIN_BUILD = YES
-endif
+# ifneq ($(strip $(shell gcc -v 2>&1 |grep "cygwin")),)
+# 	CYGWIN_BUILD = YES
+# endif
 CC	        = gcc
 CXX	        = g++
 OBJCOPY	    = objcopy
@@ -22,11 +22,10 @@ INSIGHT     = /opt/insight-x86/bin/insight
 CFLAGS	    =  -g -Wall -Iport -I../../modbus/rtu \
 		-I../../modbus/ascii -I../../modbus/include -I../../modbus/tcp
 LDFLAGS     =
-ifeq ($(CYGWIN_BUILD),YES)
-else
-LDFLAGS     += -lpthread
+# ifeq ($(CYGWIN_BUILD),YES)
+LDLIBS     += -lpthread
 CFLAGS      += -pthread
-endif
+# endif
 
 TGT         = tcpmodbus
 OTHER_CSRC  = 
@@ -55,7 +54,7 @@ debug:
 	$(INSIGHT) --se=$(TGT)
 
 $(BIN): $(OBJS) $(NOLINK_OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
+	$(CC) $(LDFLAGS) $(OBJS) -o $@  $(LDLIBS) 
 
 clean:
 	rm -f $(DEPS)
